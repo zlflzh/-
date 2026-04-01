@@ -1,0 +1,573 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>친해집시다!!</title>
+    <link
+      rel="stylesheet"
+      as="style"
+      crossorigin
+      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css"
+    />
+    <style>
+      :root {
+        --bg: #fbf9fa;
+        --header-pink: #ffc7c2;
+        --body-pink: #ffefeb;
+        --button-pink: #f56172;
+        --text: #111111;
+        --berry: #f1bbb6;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        min-height: 100%;
+        background: var(--bg);
+        color: var(--text);
+        font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo",
+          sans-serif;
+      }
+
+      body {
+        display: flex;
+        justify-content: center;
+      }
+
+      button,
+      input,
+      textarea,
+      select {
+        font: inherit;
+      }
+
+      .app {
+        position: relative;
+        width: min(100%, 430px);
+        min-height: 100vh;
+        overflow-x: hidden;
+        padding: 22px 16px 38px;
+      }
+
+      .status-bar-space {
+        height: 40px;
+      }
+
+      .title {
+        margin: 46px 0 94px;
+        text-align: center;
+        font-size: 31px;
+        line-height: 1.2;
+        font-weight: 800;
+        letter-spacing: -0.03em;
+      }
+
+      .decor {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        overflow: hidden;
+        z-index: 0;
+      }
+
+      .strawberry {
+        position: absolute;
+        color: var(--berry);
+        opacity: 0.82;
+      }
+
+      .strawberry svg {
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
+
+      .berry-top-left {
+        top: 246px;
+        left: 22px;
+        width: 118px;
+        height: 118px;
+        transform: rotate(-12deg);
+      }
+
+      .berry-top-right {
+        top: 246px;
+        right: -58px;
+        width: 250px;
+        height: 250px;
+        transform: rotate(18deg);
+      }
+
+      .berry-bottom-left {
+        top: 1068px;
+        left: -86px;
+        width: 190px;
+        height: 190px;
+        transform: rotate(18deg);
+      }
+
+      .berry-bottom-right {
+        top: 1248px;
+        right: 24px;
+        width: 126px;
+        height: 126px;
+        transform: rotate(18deg);
+      }
+
+      .content {
+        position: relative;
+        z-index: 1;
+      }
+
+      .card-wrap {
+        position: relative;
+      }
+
+      .question-card {
+        border-radius: 34px;
+        overflow: hidden;
+      }
+
+      .card-header {
+        min-height: 164px;
+        background: var(--header-pink);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 38px 28px;
+        text-align: center;
+      }
+
+      .card-header h1 {
+        margin: 0;
+        max-width: 290px;
+        font-size: 28px;
+        line-height: 1.3;
+        font-weight: 800;
+        letter-spacing: -0.045em;
+        word-break: keep-all;
+      }
+
+      .card-body {
+        background: var(--body-pink);
+        padding: 72px 26px 82px;
+      }
+
+      .question-list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: grid;
+        gap: 86px;
+      }
+
+      .question-list li {
+        margin: 0 auto;
+        max-width: 296px;
+        text-align: center;
+        font-size: 25px;
+        line-height: 1.72;
+        font-weight: 700;
+        letter-spacing: -0.05em;
+        word-break: keep-all;
+      }
+
+      .card-animating {
+        animation: cardSwap 360ms ease;
+      }
+
+      @keyframes cardSwap {
+        0% {
+          opacity: 0;
+          transform: translateY(12px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .button-wrap {
+        margin-top: 96px;
+      }
+
+      .next-button {
+        width: 100%;
+        min-height: 82px;
+        border: 0;
+        border-radius: 999px;
+        background: var(--button-pink);
+        color: #ffffff;
+        font-size: 28px;
+        line-height: 1.2;
+        font-weight: 800;
+        letter-spacing: -0.04em;
+        cursor: pointer;
+        transition: transform 120ms ease, background-color 120ms ease;
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      .next-button:active {
+        transform: scale(0.985);
+      }
+
+      .next-button:focus-visible {
+        outline: 3px solid rgba(245, 97, 114, 0.26);
+        outline-offset: 4px;
+      }
+
+      @media (max-width: 390px) {
+        .app {
+          padding-left: 14px;
+          padding-right: 14px;
+        }
+
+        .title {
+          margin-top: 40px;
+          margin-bottom: 86px;
+          font-size: 29px;
+        }
+
+        .card-header h1 {
+          font-size: clamp(24px, 7vw, 28px);
+        }
+
+        .question-list li {
+          font-size: clamp(21px, 6.5vw, 25px);
+        }
+
+        .berry-top-right {
+          right: -82px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="app">
+      <div class="decor" aria-hidden="true">
+        <div class="strawberry berry-top-left">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+            <path
+              fill="currentColor"
+              fill-rule="evenodd"
+              d="M39.722 11.797q.166-.333.313-.676l1.672-3.902c.877-2.046-.093-4.508-2.367-5.129C37.402 1.56 34.715 1 32 1a10.97 10.97 0 0 0-8 3.45A10.97 10.97 0 0 0 16.002 1c-2.716 0-5.404.56-7.342 1.09c-2.274.621-3.243 3.083-2.366 5.13l1.672 3.9q.147.345.312.677C5.092 14.876 4 19.084 4 23.595c0 5.33 2.785 11.121 6.467 15.514C14.101 43.445 19.11 47 24 47s9.899-3.555 13.533-7.89C41.215 34.715 44 28.924 44 23.594c0-4.511-1.092-8.72-4.278-11.798M34.467 36.54C37.785 32.58 40 27.67 40 23.595c0-3.993-.98-7.001-3.197-9.054C34.55 12.454 30.643 11 24 11s-10.55 1.454-12.803 3.54C8.98 16.595 8 19.603 8 23.596c0 4.075 2.215 8.986 5.533 12.945C16.899 40.555 20.89 43 24 43s7.101-2.445 10.467-6.46M19 14a2 2 0 0 1 2 2v2a2 2 0 1 1-4 0v-2a2 2 0 0 1 2-2m3 20a2 2 0 1 0-4 0v2a2 2 0 1 0 4 0zm-8-11a2 2 0 0 1 2 2v2a2 2 0 1 1-4 0v-2a2 2 0 0 1 2-2m17-7a2 2 0 1 0-4 0v2a2 2 0 1 0 4 0zm-3 16a2 2 0 0 1 2 2v2a2 2 0 1 1-4 0v-2a2 2 0 0 1 2-2m8-7a2 2 0 1 0-4 0v2a2 2 0 1 0 4 0zm-12-2a2 2 0 0 1 2 2v2a2 2 0 1 1-4 0v-2a2 2 0 0 1 2-2"
+              clip-rule="evenodd"
+            />
+          </svg>
+        </div>
+        <div class="strawberry berry-top-right">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+            <path
+              fill="currentColor"
+              fill-rule="evenodd"
+              d="M39.722 11.797q.166-.333.313-.676l1.672-3.902c.877-2.046-.093-4.508-2.367-5.129C37.402 1.56 34.715 1 32 1a10.97 10.97 0 0 0-8 3.45A10.97 10.97 0 0 0 16.002 1c-2.716 0-5.404.56-7.342 1.09c-2.274.621-3.243 3.083-2.366 5.13l1.672 3.9q.147.345.312.677C5.092 14.876 4 19.084 4 23.595c0 5.33 2.785 11.121 6.467 15.514C14.101 43.445 19.11 47 24 47s9.899-3.555 13.533-7.89C41.215 34.715 44 28.924 44 23.594c0-4.511-1.092-8.72-4.278-11.798M34.467 36.54C37.785 32.58 40 27.67 40 23.595c0-3.993-.98-7.001-3.197-9.054C34.55 12.454 30.643 11 24 11s-10.55 1.454-12.803 3.54C8.98 16.595 8 19.603 8 23.596c0 4.075 2.215 8.986 5.533 12.945C16.899 40.555 20.89 43 24 43s7.101-2.445 10.467-6.46M19 14a2 2 0 0 1 2 2v2a2 2 0 1 1-4 0v-2a2 2 0 0 1 2-2m3 20a2 2 0 1 0-4 0v2a2 2 0 1 0 4 0zm-8-11a2 2 0 0 1 2 2v2a2 2 0 1 1-4 0v-2a2 2 0 0 1 2-2m17-7a2 2 0 1 0-4 0v2a2 2 0 1 0 4 0zm-3 16a2 2 0 0 1 2 2v2a2 2 0 1 1-4 0v-2a2 2 0 0 1 2-2m8-7a2 2 0 1 0-4 0v2a2 2 0 1 0 4 0zm-12-2a2 2 0 0 1 2 2v2a2 2 0 1 1-4 0v-2a2 2 0 0 1 2-2"
+              clip-rule="evenodd"
+            />
+          </svg>
+        </div>
+        <div class="strawberry berry-bottom-left">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+            <path
+              fill="currentColor"
+              fill-rule="evenodd"
+              d="M39.722 11.797q.166-.333.313-.676l1.672-3.902c.877-2.046-.093-4.508-2.367-5.129C37.402 1.56 34.715 1 32 1a10.97 10.97 0 0 0-8 3.45A10.97 10.97 0 0 0 16.002 1c-2.716 0-5.404.56-7.342 1.09c-2.274.621-3.243 3.083-2.366 5.13l1.672 3.9q.147.345.312.677C5.092 14.876 4 19.084 4 23.595c0 5.33 2.785 11.121 6.467 15.514C14.101 43.445 19.11 47 24 47s9.899-3.555 13.533-7.89C41.215 34.715 44 28.924 44 23.594c0-4.511-1.092-8.72-4.278-11.798M34.467 36.54C37.785 32.58 40 27.67 40 23.595c0-3.993-.98-7.001-3.197-9.054C34.55 12.454 30.643 11 24 11s-10.55 1.454-12.803 3.54C8.98 16.595 8 19.603 8 23.596c0 4.075 2.215 8.986 5.533 12.945C16.899 40.555 20.89 43 24 43s7.101-2.445 10.467-6.46M19 14a2 2 0 0 1 2 2v2a2 2 0 1 1-4 0v-2a2 2 0 0 1 2-2m3 20a2 2 0 1 0-4 0v2a2 2 0 1 0 4 0zm-8-11a2 2 0 0 1 2 2v2a2 2 0 1 1-4 0v-2a2 2 0 0 1 2-2m17-7a2 2 0 1 0-4 0v2a2 2 0 1 0 4 0zm-3 16a2 2 0 0 1 2 2v2a2 2 0 1 1-4 0v-2a2 2 0 0 1 2-2m8-7a2 2 0 1 0-4 0v2a2 2 0 1 0 4 0zm-12-2a2 2 0 0 1 2 2v2a2 2 0 1 1-4 0v-2a2 2 0 0 1 2-2"
+              clip-rule="evenodd"
+            />
+          </svg>
+        </div>
+        <div class="strawberry berry-bottom-right">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+            <path
+              fill="currentColor"
+              fill-rule="evenodd"
+              d="M39.722 11.797q.166-.333.313-.676l1.672-3.902c.877-2.046-.093-4.508-2.367-5.129C37.402 1.56 34.715 1 32 1a10.97 10.97 0 0 0-8 3.45A10.97 10.97 0 0 0 16.002 1c-2.716 0-5.404.56-7.342 1.09c-2.274.621-3.243 3.083-2.366 5.13l1.672 3.9q.147.345.312.677C5.092 14.876 4 19.084 4 23.595c0 5.33 2.785 11.121 6.467 15.514C14.101 43.445 19.11 47 24 47s9.899-3.555 13.533-7.89C41.215 34.715 44 28.924 44 23.594c0-4.511-1.092-8.72-4.278-11.798M34.467 36.54C37.785 32.58 40 27.67 40 23.595c0-3.993-.98-7.001-3.197-9.054C34.55 12.454 30.643 11 24 11s-10.55 1.454-12.803 3.54C8.98 16.595 8 19.603 8 23.596c0 4.075 2.215 8.986 5.533 12.945C16.899 40.555 20.89 43 24 43s7.101-2.445 10.467-6.46M19 14a2 2 0 0 1 2 2v2a2 2 0 1 1-4 0v-2a2 2 0 0 1 2-2m3 20a2 2 0 1 0-4 0v2a2 2 0 1 0 4 0zm-8-11a2 2 0 0 1 2 2v2a2 2 0 1 1-4 0v-2a2 2 0 0 1 2-2m17-7a2 2 0 1 0-4 0v2a2 2 0 1 0 4 0zm-3 16a2 2 0 0 1 2 2v2a2 2 0 1 1-4 0v-2a2 2 0 0 1 2-2m8-7a2 2 0 1 0-4 0v2a2 2 0 1 0 4 0zm-12-2a2 2 0 0 1 2 2v2a2 2 0 1 1-4 0v-2a2 2 0 0 1 2-2"
+              clip-rule="evenodd"
+            />
+          </svg>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="status-bar-space" aria-hidden="true"></div>
+        <p class="title">친해집시다!!</p>
+
+        <section class="card-wrap" aria-live="polite">
+          <article class="question-card" id="questionCard">
+            <div class="card-header">
+              <h1 id="mainQuestion"></h1>
+            </div>
+            <div class="card-body">
+              <ul class="question-list" id="subQuestions"></ul>
+            </div>
+          </article>
+        </section>
+
+        <div class="button-wrap">
+          <button class="next-button" id="nextButton" type="button">다음 주제 뽑기</button>
+        </div>
+      </div>
+    </main>
+
+    <script>
+      const QUESTIONS = [
+        {
+          id: 1,
+          mainQuestion: "🎵 좋아하는 음악이 있나요?",
+          subQuestions: [
+            "요즘 가장 많이 듣는 노래는 무엇인가요?",
+            "플레이리스트는 어떤 느낌으로 구성하시나요? (잔잔/신나는 등)",
+            "콘서트 가본 적 있으신가요?"
+          ]
+        },
+        {
+          id: 2,
+          mainQuestion: "🎬 좋아하는 영화가 있나요?",
+          subQuestions: [
+            "가장 인상 깊었던 영화는 무엇인가요?",
+            "돈이 아깝다고 느낀 영화도 있으신가요?",
+            "혼자 보는 걸 좋아하시나요, 같이 보는 걸 좋아하시나요?"
+          ]
+        },
+        {
+          id: 3,
+          mainQuestion: "🎮 취미나 여가 시간에는 주로 무엇을 하시나요?",
+          subQuestions: [
+            "요즘 가장 자주 하는 활동은 무엇인가요?",
+            "게임을 하신다면 어떤 장르를 좋아하시나요?",
+            "술자리는 좋아하시는 편인가요?"
+          ]
+        },
+        {
+          id: 4,
+          mainQuestion: "🧠 MBTI가 어떻게 되시나요?",
+          subQuestions: [
+            "본인 성격과 잘 맞는다고 느끼시나요?",
+            "주변에서 보는 본인 성격은 어떤 것 같나요?"
+          ]
+        },
+        {
+          id: 5,
+          mainQuestion: "🍽 죽기 전에 마지막으로 먹고 싶은 음식이 있다면 무엇인가요?",
+          subQuestions: [
+            "그 음식이 특별한 이유가 있나요?",
+            "지금 당장 먹고 싶은 음식은 무엇인가요?"
+          ]
+        },
+        {
+          id: 6,
+          mainQuestion: "📅 주말에는 주로 어떻게 보내시나요?",
+          subQuestions: [
+            "집에 있는 편인가요, 밖에 나가는 편인가요?",
+            "가장 이상적인 주말은 어떤 모습인가요?"
+          ]
+        },
+        {
+          id: 7,
+          mainQuestion: "🔥 요즘 빠진 것이 있나요?",
+          subQuestions: [
+            "언제부터 빠지게 되셨나요?",
+            "주변 사람들에게 추천할 정도인가요?"
+          ]
+        },
+        {
+          id: 8,
+          mainQuestion: "⏰ 아침형 인간이신가요, 저녁형 인간이신가요?",
+          subQuestions: [
+            "가장 집중이 잘 되는 시간대는 언제인가요?",
+            "생활 패턴을 바꾸고 싶으신 적 있나요?"
+          ]
+        },
+        {
+          id: 9,
+          mainQuestion: "🐶 반려동물이 있으신가요?",
+          subQuestions: [
+            "있다면 어떤 친구인가요? 자랑해주실 수 있나요?",
+            "없다면 키워보고 싶은 동물이 있으신가요?"
+          ]
+        },
+        {
+          id: 10,
+          mainQuestion: "🐾 가장 좋아하는 동물은 무엇인가요?",
+          subQuestions: [
+            "그 동물을 좋아하는 이유가 있나요?",
+            "실제로 가까이서 본 적 있으신가요?"
+          ]
+        },
+        {
+          id: 11,
+          mainQuestion: "🍂 좋아하는 계절이 있으신가요?",
+          subQuestions: [
+            "그 계절의 어떤 점이 좋으신가요?",
+            "반대로 싫어하는 계절도 있으신가요?"
+          ]
+        },
+        {
+          id: 12,
+          mainQuestion: "🌧 비 오는 날 좋아하시나요?",
+          subQuestions: [
+            "비 오는 날 하면 떠오르는 활동이 있나요?",
+            "실내와 야외 중 어떤 걸 더 선호하시나요?"
+          ]
+        },
+        {
+          id: 13,
+          mainQuestion: "🏠 고향이 어디신가요?",
+          subQuestions: [
+            "고향의 가장 좋은 점은 무엇인가요?",
+            "다시 돌아가서 살고 싶으신가요?"
+          ]
+        },
+        {
+          id: 14,
+          mainQuestion: "⚽ 스포츠 좋아하시나요?",
+          subQuestions: [
+            "직접 하는 걸 좋아하시나요, 보는 걸 좋아하시나요?",
+            "응원하는 팀이나 선수가 있으신가요?"
+          ]
+        },
+        {
+          id: 15,
+          mainQuestion: "📱 하루 중 가장 많이 쓰는 앱은 무엇인가요?",
+          subQuestions: [
+            "왜 그 앱을 자주 쓰게 되시나요?",
+            "없으면 불편할 것 같은 앱인가요?"
+          ]
+        },
+        {
+          id: 16,
+          mainQuestion: "✈️ 여행 가신다면 어디로 가고 싶으신가요?",
+          subQuestions: [
+            "혼자 여행과 같이 가는 여행 중 어떤 걸 선호하시나요?",
+            "여행에서 가장 중요하게 생각하는 요소는 무엇인가요?"
+          ]
+        },
+        {
+          id: 17,
+          mainQuestion: "🎁 최근에 가장 잘 샀다고 생각하는 물건은 무엇인가요?",
+          subQuestions: [
+            "왜 만족스러우셨나요?",
+            "다른 사람에게 추천하고 싶으신가요?"
+          ]
+        },
+        {
+          id: 18,
+          mainQuestion: "🧩 스트레스를 받을 때는 어떻게 푸시나요?",
+          subQuestions: [
+            "혼자 푸는 편인가요, 사람을 만나는 편인가요?",
+            "효과 있었던 방법이 있으신가요?"
+          ]
+        },
+        {
+          id: 19,
+          mainQuestion: "📚 학창 시절 가장 좋아했던 과목이 있으신가요?",
+          subQuestions: [
+            "왜 그 과목을 좋아하셨나요?",
+            "반대로 가장 어려웠던 과목도 있으신가요?"
+          ]
+        },
+        {
+          id: 20,
+          mainQuestion: "☕ 커피, 차, 음료 중 가장 좋아하는 것이 있으신가요?",
+          subQuestions: [
+            "자주 마시는 메뉴는 무엇인가요?",
+            "카페에 오래 있는 편이신가요?"
+          ]
+        },
+        {
+          id: 21,
+          mainQuestion: "🍞 민초 vs 반민초",
+          subQuestions: [
+            "왜 그쪽을 선택하셨나요?",
+            "절대 이해 안 되는 음식 취향이 있으신가요?"
+          ]
+        },
+        {
+          id: 22,
+          mainQuestion: "🥄 빵에 된장 발라먹기 vs 땅콩버터로 찌개 끓이기",
+          subQuestions: [
+            "둘 중 하나는 꼭 먹어야 한다면 무엇을 고르시겠나요?",
+            "이런 밸런스 게임 좋아하시는 편인가요?"
+          ]
+        },
+        {
+          id: 23,
+          mainQuestion: "😵 이틀 굶기 vs 삼일 밤새기",
+          subQuestions: [
+            "왜 그 선택을 하셨나요?",
+            "실제로 더 자신 있는 쪽이 있으신가요?"
+          ]
+        },
+        {
+          id: 24,
+          mainQuestion: "🍀 로또 당첨 vs 수명 두 배 (+천천히 늙음)",
+          subQuestions: [
+            "바로 고르실 수 있으신가요?",
+            "인생에서 더 중요한 것은 돈이라고 생각하시나요, 시간이라고 생각하시나요?"
+          ]
+        },
+        {
+          id: 25,
+          mainQuestion: "🧥 여름에 겨울옷 vs 겨울에 여름옷",
+          subQuestions: [
+            "왜 그 선택이 더 낫다고 느끼시나요?",
+            "추위를 더 잘 버티시나요, 더위를 더 잘 버티시나요?"
+          ]
+        }
+      ];
+
+      const mainQuestionElement = document.getElementById("mainQuestion");
+      const subQuestionsElement = document.getElementById("subQuestions");
+      const questionCardElement = document.getElementById("questionCard");
+      const nextButtonElement = document.getElementById("nextButton");
+
+      let currentQuestionId = null;
+
+      function getRandomQuestion(questions, previousId) {
+        if (questions.length === 1) {
+          return questions[0];
+        }
+
+        let nextQuestion = null;
+        do {
+          const randomIndex = Math.floor(Math.random() * questions.length);
+          nextQuestion = questions[randomIndex];
+        } while (nextQuestion.id === previousId);
+
+        return nextQuestion;
+      }
+
+      function renderQuestion(question) {
+        mainQuestionElement.textContent = question.mainQuestion;
+        subQuestionsElement.innerHTML = "";
+
+        question.subQuestions.forEach((subQuestion) => {
+          const listItem = document.createElement("li");
+          listItem.textContent = subQuestion;
+          subQuestionsElement.appendChild(listItem);
+        });
+
+        questionCardElement.classList.remove("card-animating");
+        void questionCardElement.offsetWidth;
+        questionCardElement.classList.add("card-animating");
+      }
+
+      function showNextQuestion() {
+        const nextQuestion = getRandomQuestion(QUESTIONS, currentQuestionId);
+        currentQuestionId = nextQuestion.id;
+        renderQuestion(nextQuestion);
+      }
+
+      nextButtonElement.addEventListener("click", showNextQuestion);
+
+      showNextQuestion();
+    </script>
+  </body>
+</html>
