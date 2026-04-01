@@ -30,7 +30,7 @@
       html,
       body {
         margin: 0;
-        min-height: 100%;
+        height: 100%;
         background: var(--bg);
         color: var(--text);
         font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo",
@@ -52,9 +52,9 @@
       .app {
         position: relative;
         width: min(100%, 430px);
-        min-height: 100vh;
-        overflow-x: hidden;
-        padding: 22px 16px 38px;
+        height: 100vh;
+        overflow: hidden;
+        padding: 22px 16px 24px;
       }
 
       .status-bar-space {
@@ -62,9 +62,9 @@
       }
 
       .title {
-        margin: 44px 0 98px;
+        margin: 34px 0 56px;
         text-align: center;
-        font-size: 30px;
+        font-size: 28px;
         line-height: 1.2;
         font-weight: 800;
         letter-spacing: -0.03em;
@@ -90,38 +90,37 @@
         height: 100%;
       }
 
-.berry-top-left {
-  top: 250px;
-  left: 28px;
-  width: 110px;
-  height: 110px;
-  transform: rotate(-12deg);
-}
+      .berry-top-left {
+        top: 212px;
+        left: 22px;
+        width: 92px;
+        height: 92px;
+        transform: rotate(-12deg);
+      }
 
-.berry-top-right {
-  top: 256px;
-  right: -92px;
-  width: 252px;
-  height: 252px;
-  transform: rotate(22deg);
-}
+      .berry-top-right {
+        top: 214px;
+        right: -82px;
+        width: 208px;
+        height: 208px;
+        transform: rotate(22deg);
+      }
 
-.berry-bottom-left {
-  bottom: 292px;
-  left: -76px;
-  width: 190px;
-  height: 190px;
-  transform: rotate(18deg);
-}
+      .berry-bottom-left {
+        bottom: 150px;
+        left: -64px;
+        width: 156px;
+        height: 156px;
+        transform: rotate(18deg);
+      }
 
-.berry-bottom-right {
-  bottom: 182px;
-  right: 22px;
-  width: 132px;
-  height: 132px;
-  transform: rotate(18deg);
-}
-
+      .berry-bottom-right {
+        bottom: 104px;
+        right: 18px;
+        width: 108px;
+        height: 108px;
+        transform: rotate(18deg);
+      }
 
       .content {
         position: relative;
@@ -138,20 +137,20 @@
       }
 
       .card-header {
-        min-height: 163px;
+        min-height: 118px;
         background: var(--header-pink);
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: 40px 30px 36px;
+        padding: 28px 22px 24px;
         text-align: center;
       }
 
       .card-header h1 {
         margin: 0;
-        max-width: 318px;
-        font-size: 30px;
-        line-height: 1.28;
+        max-width: 296px;
+        font-size: 24px;
+        line-height: 1.35;
         font-weight: 800;
         letter-spacing: -0.045em;
         word-break: keep-all;
@@ -159,7 +158,7 @@
 
       .card-body {
         background: var(--body-pink);
-        padding: 74px 26px 84px;
+        padding: 42px 24px 44px;
       }
 
       .question-list {
@@ -167,16 +166,16 @@
         margin: 0;
         padding: 0;
         display: grid;
-        gap: 82px;
+        gap: 42px;
       }
 
       .question-list li {
         margin: 0 auto;
-        max-width: 302px;
+        max-width: 286px;
         text-align: center;
-        font-size: 24px;
-        line-height: 1.74;
-        font-weight: 700;
+        font-size: 20px;
+        line-height: 1.55;
+        font-weight: 400;
         letter-spacing: -0.05em;
         word-break: keep-all;
       }
@@ -197,22 +196,22 @@
       }
 
       .button-wrap {
-        margin-top: 86px;
+        margin-top: 34px;
       }
 
       .next-button {
         width: 100%;
-        min-height: 82px;
+        min-height: 74px;
         border: 0;
         border-radius: 999px;
         background: var(--button-pink);
         color: #ffffff;
-        font-size: 27px;
+        font-size: 20px;
         line-height: 1.2;
         font-weight: 800;
         letter-spacing: -0.04em;
         cursor: pointer;
-        transition: transform 120ms ease, background-color 120ms ease;
+        transition: transform 120ms ease;
         -webkit-tap-highlight-color: transparent;
       }
 
@@ -223,31 +222,6 @@
       .next-button:focus-visible {
         outline: 3px solid rgba(245, 97, 114, 0.26);
         outline-offset: 4px;
-      }
-
-      @media (max-width: 390px) {
-        .app {
-          padding-left: 16px;
-          padding-right: 16px;
-        }
-
-        .title {
-          margin-top: 40px;
-          margin-bottom: 94px;
-          font-size: 29px;
-        }
-
-        .card-header h1 {
-          font-size: clamp(27px, 7.6vw, 30px);
-        }
-
-        .question-list li {
-          font-size: clamp(22px, 6.15vw, 24px);
-        }
-
-        .berry-top-right {
-          right: -88px;
-        }
       }
     </style>
   </head>
@@ -264,6 +238,7 @@
             />
           </svg>
         </div>
+
         <div class="strawberry berry-top-right">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
             <path
@@ -274,6 +249,7 @@
             />
           </svg>
         </div>
+
         <div class="strawberry berry-bottom-left">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
             <path
@@ -284,6 +260,7 @@
             />
           </svg>
         </div>
+
         <div class="strawberry berry-bottom-right">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
             <path
